@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadesription %}
+    Checkout & Payment Page
+{% endblock %}
+
+{% block title %}
+Checkout & Payment
+{% endblock %}
+
+{% block content %}
+<div class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow p-4">
+            <h2 class="text-center mb-4">Order summary</h2>
+            <table class="table table-bordered">
+                <thead class="table-secondary">
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{item.product.name}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.product.price}}</td>
+                        <td>{{item.sub_total}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <h4 class="text-end mt-3">Total: {{total}}</h4>
+            <div class="text-center mt-4">
+                <a  class="btn btn-success" href="{% url 'cart:payment_success' %}" id="rzp-button1">Pay {{total}}</a>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "{{razorpay_key_id}}", // Enter the Key ID generated from the Dashboard
+    "amount": "{{payment}}", // Amount is in currency subunits. 
+    "currency": "INR",
+    "name": "Gkart", //your business name
+    "description": "Purchase Payment",
+    
+    "order_id": "{{payment.id}}", // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler" : function(response){
+        window.location.href="/cart/payment-success/?order_id={{order.id}} &payment_id="+response.razorpay_payment_id+" &signature= "+response.razorpay_signature;
+        },
+    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+        "name": "{{request.user.username}}", //your customer's name
+        "email": "<email>",
+        "contact": "<phone>" //Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#528FF0"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+</div>
+<br><br><br>
+{% endblock %}

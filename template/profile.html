@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<br><br>Welcome {{user.username}}
+{% endif %}
+<h1>This is profile page</h1>
+{% endblock %}

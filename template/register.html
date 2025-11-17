@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <div class="container" style=" width : 450px; border: 1px solid black">
+		<div class="modal-content p-4">
+        <div class="modal-header mx-auto border-1">
+          <h2 class="modal-title fs-3 fw-normal">Register</h2>
+          
+        </div><br><br>
+        <div class="modal-body">
+          <div class="login-detail">
+            <div class="login-form p-0">
+              <div class="col-lg-12 mx-auto">
+                
+
+                <form action="" method="post">
+                  {% csrf_token %}
+                   
+                  <input style="width: 100%;" type="text" name="username" placeholder="Username" class="mb-3 ps-3 text-input">
+                  <input style="width: 100%;" type="text" name="email" placeholder="Email" class="mb-3 ps-3 text-input">
+                  <input style="width: 100%;" type="password" name="password" placeholder="Password" class="mb-3 ps-3 text-input">                 
+                  <input style="width: 100%;" type="password" name="password" placeholder="Confirm Password" class="ps-3 text-input">
+                
+             
+              </div>
+
+            </div>
+            <div class="modal-footer mt-5 d-flex justify-content-center">
+              
+              <button type="submit" class="btn btn-outline-primary hvr-sweep-to-right dark-sweep">Register</button>
+            </div>
+            </form>
+          </div>
+        </div>
+        
+ 
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{message}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<br><br><br>
+{% endblock %}
+
+
+
+

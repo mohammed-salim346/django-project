@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block metadescription %}
+{{ products.description}}
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+    {{product.name}} - Gkart Store
+    {% endif %}
+{% endblock %}
+
+{% block content%}
+    <div class="row my_prod_row_class">
+        <div mx-auto>
+            <p><a href="{% url 'myshop:allProdCat' %}">Home</a> |
+            <a href="{{product.category.get_url}}">{{product.category}}</a> |
+            {{product.name}} </p>
+        </div>
+    </div>
+    <div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12 text-center">
+            <img style="width: 400px;" src="{{product.image.url}}" alt="{{product.name}}">
+        </div>
+    </div>
+    <div style="min-width: 18rem">
+        <center>
+        <div class="col-12 col-sm12 col-md-12 col-lg6">
+            <h1 class="my_prod_title">{{product.name}}</h1>
+            <p>{{product.price}}</p>
+            <p class="my_title">product description:</p>
+            <p class="text-justify my_prod_text">{{product.description}}</p>
+            {% if product.stock <= 0 %}
+            <p class="text-justify my_prod_text"><b>Out of Stock</b></p>
+            {% else %}
+            <a class="btn btn-secondary" href="{% url 'cart:add_cart' product.id %}">Add to cart</a>
+            {% endif %}
+            <br>
+        </div>
+        </center>
+    </div>
+    </div>
+{% endblock %}

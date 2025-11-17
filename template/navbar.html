@@ -1,0 +1,54 @@
+<!-- <nav>
+    <ul>
+        <li><a href="{% url 'myshop:allProdCat' %}">All Products</a></li>
+        {% for cat in links %}
+            <li><a href="{{cat.get_url}}">{{cat.name}}</a></li>
+        {% endfor %}
+        <li>Your cart</li>
+    </ul>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'myshop:allProdCat' %}">Home</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu">
+            {% for cat in links %}
+            <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+           {% endfor %}    
+        </ul>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'cart:cart_detail' %}"><i class="fa-solid fa-cart-shopping"></i>({{item_count}})</a>        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li> -->
+      </ul>
+       <form class="d-flex" action="{% url 'search_app:searchResult' %}" role="search" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+  </div>
+
+    <!-- <ul>
+        <li><a href="{% url 'myshop:allProdCat' %}">All products</a></li>
+        {% for cat in links %}
+            <li><a href="{{cat.get_url}}">{{cat.name}}</a></li>
+        {% endfor %}
+        <li>Your Cart()</li>
+    </ul> -->
+</nav>
